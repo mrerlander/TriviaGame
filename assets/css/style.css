@@ -1,0 +1,15 @@
+body {
+    font-family: 'Metal Mania', cursive;
+    background: url(../images/black-metal-wallpaper.jpg);
+}
+
+.jumbotron {
+    color: #c0c0c0;
+    margin-top: 3em;
+    background: url(../images/skeleton.jpg);
+    background-size: cover;
+}
+
+.btn {
+    background: #c0c0c0;
+}
