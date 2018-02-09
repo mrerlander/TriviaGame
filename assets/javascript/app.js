@@ -4,9 +4,10 @@ $(document).ready(function () {
     var correct = 0;
     var incorrect = 0;
     var currentQ = 0;
+    var timerDisplay = 15;
     var questionTime;
-    var timer = 15;
     var dqTimeout;
+    var intClear;
 
     //questions object
     var questionArray = [
@@ -80,14 +81,21 @@ $(document).ready(function () {
 
         //display quiz stats and creates restart button
         $("#quiz").html('<h3 id="question">Behold your statistics:</h3>' + '<p>' + correct + '</p>' + '<p>' + incorrect + '</p>' + '<button type="button" class="btn btn-default btn-lg btn-block" id="restart">Click to be reborn</button>');
-        
+
+        //if all correct/incorrect
+        if (correct === 5) {
+            $("#quiz").append("<h1>Your knowledge may be vast, but it cannot save you.</h1>");
+        }
+        else if (incorrect === 5) {
+            $("#quiz").append("<h1>This disappointment shall prepare you well for eternity.</h1>");
+        }
         //click handler to start quiz over
         $("#restart").click(startQuiz);
     }
 
     //function for correct answer
     function correctAnswer() {
-        
+
         //increase correct variable
         correct++
 
@@ -128,7 +136,7 @@ $(document).ready(function () {
             '<button type="button" class="btn btn-default btn-lg btn-block" id="b" disabled="disabled">' + questionArray[currentQ].answers.b + '</button>' +
             '<button type="button" class="btn btn-default btn-lg btn-block" id="c" disabled="disabled">' + questionArray[currentQ].answers.c + '</button>' + '<button type="button" class="btn btn-default btn-lg btn-block" id="d" disabled="disabled">' + questionArray[currentQ].answers.d + '</button>' +
             '</div>');
-        
+
         //shows correct answer on button
         $("#" + questionArray[currentQ].correct).attr("class", "btn btn-success btn-lg btn-block");
 
@@ -137,7 +145,7 @@ $(document).ready(function () {
 
         //timeout to go to next question
         dqTimeout = setTimeout(displayQuestion, 1000 * 5);
-        
+
         //checks if last question for quiz end screen
         if (currentQ === questionArray.length) {
             clearTimeout(dqTimeout);
@@ -147,6 +155,25 @@ $(document).ready(function () {
 
     //function to display quiz question
     function displayQuestion() {
+
+        function timer() {
+            timerDisplay = 15;
+
+            intClear = setInterval(countdown, 1000);
+
+
+            function countdown() {
+                timerDisplay--;
+                if (timerDisplay >= 0) {
+                    $("#time-display").text(timerDisplay);
+                }
+                if (timerDisplay === 0) {
+                    clearInterval(intClear);
+                }
+            }
+        }
+
+        timer();
 
         //sets html to display question and answer buttons
         $("#quiz").html('<h3 id="question">' + questionArray[currentQ].question + '</h3>' +
@@ -161,10 +188,10 @@ $(document).ready(function () {
 
         //click handler for buttons
         $("button").click(function () {
-            
+
             //clears timeOut 
             clearTimeout(questionTime);
-
+            clearInterval(intClear);
             //checks if answer was correct
             if (this.id === questionArray[currentQ].correct) {
                 correctAnswer();

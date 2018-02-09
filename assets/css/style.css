@@ -4,12 +4,17 @@ body {
 }
 
 .jumbotron {
-    color: #c0c0c0;
+    color: #eeeeee;
     margin-top: 3em;
     background: url(../images/skeleton.jpg);
     background-size: cover;
 }
 
 .btn-default {
-    background: #c0c0c0;
+    background: #eeeeee;
+}
+
+iframe {
+    position: fixed;
+    bottom: 0;
 }
