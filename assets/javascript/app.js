@@ -156,11 +156,10 @@ $(document).ready(function () {
     //function to display quiz question
     function displayQuestion() {
 
+        //timer
         function timer() {
             timerDisplay = 15;
-
             intClear = setInterval(countdown, 1000);
-
 
             function countdown() {
                 timerDisplay--;
@@ -192,6 +191,7 @@ $(document).ready(function () {
             //clears timeOut 
             clearTimeout(questionTime);
             clearInterval(intClear);
+
             //checks if answer was correct
             if (this.id === questionArray[currentQ].correct) {
                 correctAnswer();
